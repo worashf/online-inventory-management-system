@@ -5,10 +5,49 @@
  */
 package com.inventory.deva_inventory.model;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 /**
  *
  * @author best
  */
-public class Address {
+@Entity
+@Table(name ="address")
+public class Address  implements Serializable{
+    @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long address_id;
+     @Column(name="country")
+     private String country;
+     @Column(name ="city")
+     private String city;
+     @Column(name="sub_city")
+     private String sub_city;
+     @Column(name="state")
+     private String state;
+     @Column(name ="street")
+     private String street;
+     @Column(name="postal_code")
+     private String postal_code;
+     
     
+       @OneToOne
+       @JoinColumn(name="company_id")
+     private Company company;
+      @OneToOne
+      @JoinColumn(name="store_id")
+     private Store store;
+     
+     
+     
 }

@@ -35,7 +35,8 @@ public class Company implements Serializable{
       private String comp_email;
       @OneToMany(mappedBy = "company" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Store>  store;
-
+   @OneToOne(mappedBy ="company",fetch = FetchType.LAZY)
+    private Address address;
     public Long getComp_id() {
         return comp_id;
     }

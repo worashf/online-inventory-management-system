@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,15 +30,13 @@ public class Store  implements    Serializable{
     private String store_name;
     @Column(name="store_size")
     private int store_size;
-    
-    
-         
-    
-    
-    
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name ="comp_id")
     private Company company;
+    
+   @OneToOne(mappedBy ="store",fetch = FetchType.LAZY)
+      private Address address;
 
     public long getStore_id() {
         return store_id;

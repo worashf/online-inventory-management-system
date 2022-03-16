@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.deva_inventory.model;
+package com.inventory.deva_inventory.service;
 
 /**
  *
  * @author best
  */
-public class User {
+public interface CategoryService {
     
 }

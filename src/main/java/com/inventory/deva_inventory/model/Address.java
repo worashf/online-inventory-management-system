@@ -48,6 +48,12 @@ public class Address  implements Serializable{
       @JoinColumn(name="store_id")
      private Store store;
      
+     @OneToOne
+     @JoinColumn(name ="supplier_id")
+     private Supplier supplier;
+     @OneToOne
+     @JoinColumn(name="customer_id")
+     private Customer customer;
      
      
 }

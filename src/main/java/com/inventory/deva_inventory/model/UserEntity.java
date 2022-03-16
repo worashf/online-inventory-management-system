@@ -8,11 +8,9 @@ package com.inventory.deva_inventory.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,26 +18,31 @@ import javax.persistence.Table;
  * @author best
  */
 @Entity
-@Table(name="customer")
-public class Customer implements Serializable{
-     @Id
-     @GeneratedValue(strategy = GenerationType.AUTO)
+@Table(name="user_table")
+public class UserEntity implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long user_id;
     @Column(name="first_name")
-     private String first_name;
-     @Column(name="last_name")
-     private String last_name;
-     @Column(name="phone1")
-     private String phone1;
-      @Column(name="email")   
-      private String email;
-     @Column(name="user_name")
+    private String first_name;
+    @Column(name="last_name")
+    private  String last_name;
+    @Column(name="email")
+    private  String email;
+    @Column(name="user_name")
      private String user_name;
      @Column(name="password")
      private String password;
      @Column(name="user_status")
      private String user_status;
-      @OneToOne(mappedBy ="customer",fetch = FetchType.LAZY)
-    private Address address;
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
 
     public String getFirst_name() {
         return first_name;
@@ -57,12 +60,12 @@ public class Customer implements Serializable{
         this.last_name = last_name;
     }
 
-    public String getPhone1() {
-        return phone1;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhone1(String phone1) {
-        this.phone1 = phone1;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUser_name() {
@@ -88,22 +91,6 @@ public class Customer implements Serializable{
     public void setUser_status(String user_status) {
         this.user_status = user_status;
     }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-      
-      
+    
+    
 }

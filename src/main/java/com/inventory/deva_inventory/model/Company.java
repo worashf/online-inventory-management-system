@@ -21,7 +21,7 @@ import javax.persistence.*;
 @Table(name = "company")
 public class Company implements Serializable{
       @Id
-      @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
       private Long comp_id;
       
       @Column(name="company_name")
@@ -37,6 +37,23 @@ public class Company implements Serializable{
     private List<Store>  store;
    @OneToOne(mappedBy ="company",fetch = FetchType.LAZY)
     private Address address;
+
+    public List<Store> getStore() {
+        return store;
+    }
+
+    public void setStore(List<Store> store) {
+        this.store = store;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+   
     public Long getComp_id() {
         return comp_id;
     }

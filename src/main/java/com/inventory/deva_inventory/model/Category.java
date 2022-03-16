@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,9 +25,9 @@ import javax.persistence.Table;
 @Table(name="product_category")
 public class Category implements  Serializable{
      @Id
-     @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name="category_id")
-     private String cat_id;
+     private Long cat_id;
      @Column(name ="category_name")
      private String cat_name;
      @Column(name="category_description")
@@ -34,11 +35,11 @@ public class Category implements  Serializable{
      @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private List<Product> products;
 
-    public String getCat_id() {
+    public Long getCat_id() {
         return cat_id;
     }
 
-    public void setCat_id(String cat_id) {
+    public void setCat_id(Long cat_id) {
         this.cat_id = cat_id;
     }
 

@@ -5,10 +5,14 @@
  */
 package com.inventory.deva_inventory.service;
 
+import com.inventory.deva_inventory.model.Brand;
+
 /**
  *
  * @author best
  */
 public interface BrandService {
-    
+     public Brand findBrandById(Long brandId);
+     public Brand findBrandByName(String brandName);
+     
 }

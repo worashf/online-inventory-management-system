@@ -5,8 +5,7 @@
  */
 package com.inventory.deva_inventory.dao;
 
-import com.inventory.deva_inventory.model.Brand;
-
+import com.inventory.deva_inventory.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author best
  */
 @Repository
-public interface BrandRepository extends JpaRepository<Brand, Long>{
-      public Brand findByBrandId(Long brandId);
-     public Brand findByBrandName( String brandName);
+public interface RoleRepository  extends JpaRepository<Role, Long>{
+    
 }

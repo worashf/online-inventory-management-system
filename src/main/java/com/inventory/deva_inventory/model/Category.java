@@ -27,36 +27,36 @@ public class Category implements  Serializable{
      @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name="category_id")
-     private Long cat_id;
+     private Long categoryId;
      @Column(name ="category_name")
-     private String cat_name;
+     private String categoryName;
      @Column(name="category_description")
-     private String cat_description;
+     private String categoryDescription;
      @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private List<Product> products;
 
-    public Long getCat_id() {
-        return cat_id;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCat_id(Long cat_id) {
-        this.cat_id = cat_id;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getCat_name() {
-        return cat_name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCat_name(String cat_name) {
-        this.cat_name = cat_name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public String getCat_description() {
-        return cat_description;
+    public String getCategoryDescription() {
+        return categoryDescription;
     }
 
-    public void setCat_description(String cat_description) {
-        this.cat_description = cat_description;
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 
     public List<Product> getProducts() {
@@ -66,5 +66,5 @@ public class Category implements  Serializable{
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-     
+
 }

@@ -5,6 +5,7 @@
  */
 package com.inventory.deva_inventory.service.impl;
 
+import com.inventory.deva_inventory.model.Brand;
 import com.inventory.deva_inventory.service.BrandService;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +15,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BrandServiceImpl implements BrandService{
+
+    @Override
+    public Brand findBrandById(Long brandId) {
+        return null;
+        }
+
+    @Override
+    public Brand findBrandByName(String brandName) {
+      return null;  
+    }
     
 }

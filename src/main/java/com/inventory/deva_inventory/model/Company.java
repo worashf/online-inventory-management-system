@@ -22,16 +22,17 @@ import javax.persistence.*;
 public class Company implements Serializable{
       @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+       @Column(name="comp_id")
       private Long comp_id;
       
-      @Column(name="company_name")
+      @Column(name="comp_name")
       private String comp_name;
-      @Column(name="company_phone1")
+      @Column(name="comp_phone1")
       private String comp_phone1;
       
       @Column(name="comp_phone2")
       private String comp_phone2;
-      @Column(name="company_email")
+      @Column(name="comp_email")
       private String comp_email;
       @OneToMany(mappedBy = "company" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Store>  store;

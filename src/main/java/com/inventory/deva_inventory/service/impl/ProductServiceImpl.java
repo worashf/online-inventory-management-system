@@ -5,10 +5,14 @@
  */
 package com.inventory.deva_inventory.service.impl;
 
+import com.inventory.deva_inventory.service.ProductService;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author best
  */
-public class ProductServiceImpl {
+@Service
+public class ProductServiceImpl implements ProductService{
     
 }

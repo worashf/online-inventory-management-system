@@ -26,37 +26,38 @@ import javax.persistence.Table;
 public class Brand  implements  Serializable{
     @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long brand_id;
+       @Column(name="brand_id")
+    private  Long brandId;
     @Column(name="brand_name")
-    private String brand_name;
+    private String brandName;
     @Column(name="brand_description")
-    private String brand_desc;
+    private String brandDesc;
     
     @OneToMany(mappedBy = "brand" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Product> products;
 
-    public Long getBrand_id() {
-        return brand_id;
+    public Long getBrandId() {
+        return brandId;
     }
 
-    public void setBrand_id(Long brand_id) {
-        this.brand_id = brand_id;
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 
-    public String getBrand_name() {
-        return brand_name;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setBrand_name(String brand_name) {
-        this.brand_name = brand_name;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
-    public String getBrand_desc() {
-        return brand_desc;
+    public String getBrandDesc() {
+        return brandDesc;
     }
 
-    public void setBrand_desc(String brand_desc) {
-        this.brand_desc = brand_desc;
+    public void setBrandDesc(String brandDesc) {
+        this.brandDesc = brandDesc;
     }
 
     public List<Product> getProducts() {

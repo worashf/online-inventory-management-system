@@ -26,7 +26,8 @@ import javax.persistence.Table;
 public class Address  implements Serializable{
     @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long address_id;
+     @Column(name="address_id")
+    private Long addressId;
      @Column(name="country")
      private String country;
      @Column(name ="city")

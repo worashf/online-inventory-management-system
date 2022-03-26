@@ -44,7 +44,7 @@ public class CategoryController {
         return ResponseEntity.accepted().headers(headers).body(savedCat);
     }
     
-        @PutMapping("/update-categories/{categoryId}")
+        @PutMapping("/categories/{categoryId}")
     public ResponseEntity<Category> updateCategory(@PathVariable Integer categoryId,@RequestBody Category cat){
          Category updatedCat = catService.editCategory(categoryId,cat);
        

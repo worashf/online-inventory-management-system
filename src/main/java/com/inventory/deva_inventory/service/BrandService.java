@@ -14,5 +14,12 @@ import com.inventory.deva_inventory.model.Brand;
 public interface BrandService {
      public Brand findBrandById(Long brandId);
      public Brand findBrandByName(String brandName);
+     public Brand  saveBrand( Brand b);
+     public Brand  deleteBrand(Long brandId);
+     public Brand  editBrand(Brand b);
+     public Brand listAllBrand();
+     
+     
+     
      
 }

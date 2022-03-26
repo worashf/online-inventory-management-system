@@ -27,7 +27,7 @@ public class Category implements  Serializable{
      @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name="category_id")
-     private Long categoryId;
+     private Integer categoryId;
      @Column(name ="category_name")
      private String categoryName;
      @Column(name="category_description")
@@ -35,13 +35,14 @@ public class Category implements  Serializable{
      @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private List<Product> products;
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
+
 
     public String getCategoryName() {
         return categoryName;

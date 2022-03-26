@@ -8,18 +8,19 @@ package com.inventory.deva_inventory.service;
 import com.inventory.deva_inventory.dto.CategoryDto;
 import com.inventory.deva_inventory.model.Category;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
  * @author best
  */
 public interface CategoryService {
-    public CategoryDto AddCategory( CategoryDto catDto);
+    public Category AddCategory( Category cat);
   
-    public CategoryDto  searchByCategoryId( Long categoryId);
-    public List<CategoryDto> ListAllCategory();
-    public CategoryDto  editCategory(CategoryDto catDto);
-    public CategoryDto findCategoryByName(String categoryName);
+    public Category searchByCategoryId( Integer categoryId);
+    public List<Category> ListAllCategory();
+    public Category  editCategory(Category cat);
+    public Category findCategoryByName(String categoryName);
     
     
     

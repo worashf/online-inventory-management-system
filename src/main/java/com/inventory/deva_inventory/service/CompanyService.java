@@ -5,10 +5,13 @@
  */
 package com.inventory.deva_inventory.service;
 
+import com.inventory.deva_inventory.model.Company;
+
 /**
  *
  * @author best
  */
 public interface CompanyService {
-    
+    public Company saveCompany(Company com);
+    public Company editCompany(Company com);
 }

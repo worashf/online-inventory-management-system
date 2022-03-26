@@ -11,19 +11,21 @@ package com.inventory.deva_inventory.dto;
  */
 public class CategoryDto {
 
-     private Long categoryId;
+     private Integer categoryId;
    
      private String categoryName;
    
      private String categoryDescription;
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
+
+ 
 
     public String getCategoryName() {
         return categoryName;

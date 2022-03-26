@@ -12,8 +12,10 @@ import com.inventory.deva_inventory.service.CategoryService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -44,64 +46,79 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto AddCategory(CategoryDto catDto) {
-        Category cat = convertCategoryDtoToCategoryEntity(catDto);
-        Category savedCat = catRepo.save(cat);
-        CategoryDto savedDto = convertCategoryEntityToCategoryDto(savedCat);
-        return savedDto;
-    }
-
-    @Override
-    public CategoryDto searchByCategoryId(Long categoryId) {
-         Category cat = catRepo.findByCategoryId(categoryId);
-          CategoryDto catDto = new CategoryDto();
-        catDto.setCategoryId(cat.getCategoryId());
-        catDto.setCategoryName(cat.getCategoryName());
-        catDto.setCategoryDescription(cat.getCategoryDescription());
-        return catDto;
-    }
-
-    @Override
-    public List<CategoryDto> ListAllCategory() {
-     List<Category> catList = catRepo.findAll();
-      List<CategoryDto> catDtolist = new ArrayList<>();
-        CategoryDto catDto = new CategoryDto();
-      for(Category cat: catList){
-         catDto.setCategoryId(cat.getCategoryId());
-        catDto.setCategoryName(cat.getCategoryName());
-        catDto.setCategoryDescription(cat.getCategoryDescription());
-        catDtolist.add(catDto);
-      }
-      return  catDtolist;
-              
-     
-    }
-
-    @Override
-    public CategoryDto editCategory(CategoryDto catDto) {
-       CategoryDto cat_dto = searchByCategoryId(convertCategoryDtoToCategoryEntity(catDto).getCategoryId());
-     
-        Category cat = new Category();
-        cat.setCategoryId(cat_dto.getCategoryId());
-        cat.setCategoryName(cat_dto.getCategoryName());
-        cat.setCategoryDescription(cat_dto.getCategoryDescription());
-        
-        Category editedCat = catRepo.save(cat);
-        CategoryDto savedDto = convertCategoryEntityToCategoryDto(editedCat);
-       
-    return savedDto;
-    }
-
-    @Override
-    public CategoryDto findCategoryByName(String categoryName) {
+    public Category AddCategory(Category cat) {
+        Category savedCat  =null;
+        try {
+             savedCat = catRepo.save(cat);
+        } catch (Exception e) {
+            savedCat =null;
+        }
       
-          Category cat = catRepo.findBycategoryName(categoryName);
-          CategoryDto catDto = new CategoryDto();
-        catDto.setCategoryId(cat.getCategoryId());
-        catDto.setCategoryName(cat.getCategoryName());
-        catDto.setCategoryDescription(cat.getCategoryDescription());
-        return catDto;
+       
+        return savedCat;
+    }
+
+    @Override
+    public Category searchByCategoryId(Integer categoryId) {
+        Category cat =null;
+        try {
+             cat =catRepo.findByCategoryId(categoryId);
+        } catch (Exception e) {
+            cat =null;
+        }
+        
+       
+        return cat;
+    }
+
+    @Override
+    public List<Category> ListAllCategory() {
+        
+        List<Category> catList = catRepo.findAll();
+      
+      
+return catList;
+        
+    }
+@Transactional
+    @Override
+    public Category editCategory(Category cat) {
+//       CategoryDto cat_dto = searchByCategoryId(convertCategoryDtoToCategoryEntity(catDto).getCategoryId());
+//         
+//        Category cat = new Category();
+//        cat.setCategoryId(cat_dto.getCategoryId());
+//        cat.setCategoryName(cat_dto.getCategoryName());
+//        cat.setCategoryDescription(cat_dto.getCategoryDescription());
+//        
+//        Category editedCat = catRepo.save(cat);
+//        CategoryDto savedDto = convertCategoryEntityToCategoryDto(editedCat);
+        Category updatedCat = null;
+        try {
+            Category cat1 =null;
+            cat1 = catRepo.getById(cat.getCategoryId());
+           
+            System.out.println(cat.getCategoryId() + " data " + cat.getCategoryName());
+            Integer catId = catRepo.editCategory(cat1.getCategoryId(), cat1.getCategoryName(), cat1.getCategoryDescription());
+              System.out.println(catId);
+             updatedCat = catRepo.findBycategoryName(cat1.getCategoryName());
+           
+            System.out.println(updatedCat);
+       } catch (Exception e) {
+            updatedCat= null;
+            System.out.println(e.getMessage());
         }
 
- 
+        return updatedCat;
+    }
+
+    @Override
+    public Category findCategoryByName(String categoryName) {
+
+        Category cat = catRepo.findBycategoryName(categoryName);
+       
+        return cat;
+    }
+
+  
+
 }

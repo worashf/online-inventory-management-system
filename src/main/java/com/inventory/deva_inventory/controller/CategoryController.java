@@ -7,6 +7,7 @@ package com.inventory.deva_inventory.controller;
 
 
 import com.inventory.deva_inventory.dto.CategoryDto;
+import com.inventory.deva_inventory.model.Category;
 import com.inventory.deva_inventory.service.CategoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,33 +34,33 @@ public class CategoryController {
      private CategoryService catService;
     
     @PostMapping("categories")
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto catDto){
-         CategoryDto savedCat = catService.AddCategory(catDto);
+    public ResponseEntity<Category> createCategory(@RequestBody Category cat){
+         Category savedCat = catService.AddCategory(cat);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Responded", "CategoryController");
         return ResponseEntity.accepted().headers(headers).body(savedCat);
     }
     
         @PutMapping("/update-categories")
-    public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto catDto){
-         CategoryDto updatedCat = catService.editCategory(catDto);
+    public ResponseEntity<Category> updateCategory(@RequestBody Category cat){
+         Category updatedCat = catService.editCategory(cat);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Responded", "CategoryController");
         return ResponseEntity.accepted().headers(headers).body(updatedCat);
     }
  @GetMapping("/categories")
- public  ResponseEntity<List<CategoryDto>> ListAllCategories(){
-   List<CategoryDto> catList =  catService.ListAllCategory();
+ public  ResponseEntity<List<Category>> ListAllCategories(){
+   List<Category> catList =  catService.ListAllCategory();
    return  ResponseEntity.ok().body(catList);
  }
  @GetMapping("/categories/{categoryId}")
- public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long categoryId){
-      CategoryDto catById = catService.searchByCategoryId(categoryId);
+ public ResponseEntity<Category> getCategoryById(@PathVariable Integer categoryId){
+      Category catById = catService.searchByCategoryId(categoryId);
      return ResponseEntity.ok().body(catById);
  }
   @GetMapping("/categories-name/{categoryName}")
- public ResponseEntity<CategoryDto> getCategoryByName(@PathVariable  String categoryName){
-      CategoryDto catByName = catService.findCategoryByName(categoryName);
+ public ResponseEntity<Category> getCategoryByName(@PathVariable  String categoryName){
+      Category catByName = catService.findCategoryByName(categoryName);
      
        return ResponseEntity.ok().body(catByName);
  

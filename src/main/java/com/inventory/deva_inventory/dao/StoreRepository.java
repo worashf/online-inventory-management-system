@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author best
  */
 @Repository
-public interface StoreRepository  extends JpaRepository<Store, Long>{
+public interface StoreRepository  extends JpaRepository<Store, Integer>{
     
 }

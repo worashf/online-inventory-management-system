@@ -29,11 +29,18 @@ import javax.persistence.Table;
 public class Store  implements    Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long  store_id;
+    @Column(name ="store_id")
+    private Integer  storeId;
     @Column(name="store_name")
-    private String store_name;
+    private String storeName;
     @Column(name="store_size")
-    private int store_size;
+    private int storeSize;
+    @Column(name = "building")
+    private String building;
+    @Column(name = "floor")
+    private int  floor;
+    @Column(name = "room")
+    private int room;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name ="comp_id")
@@ -59,30 +66,31 @@ public class Store  implements    Serializable{
     public void setInventories(List<Inventory> inventories) {
         this.inventories = inventories;
     }
-   
-   
-    public long getStore_id() {
-        return store_id;
+
+    public Integer getStoreId() {
+        return storeId;
     }
 
-    public void setStore_id(long store_id) {
-        this.store_id = store_id;
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
-    public String getStore_name() {
-        return store_name;
+  
+
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setStore_name(String store_name) {
-        this.store_name = store_name;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
-    public int getStore_size() {
-        return store_size;
+    public int getStoreSize() {
+        return storeSize;
     }
 
-    public void setStore_size(int store_size) {
-        this.store_size = store_size;
+    public void setStoreSize(int storeSize) {
+        this.storeSize = storeSize;
     }
 
     public Company getCompany() {
@@ -92,5 +100,31 @@ public class Store  implements    Serializable{
     public void setCompany(Company company) {
         this.company = company;
     }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
+    }
+   
+   
     
 }

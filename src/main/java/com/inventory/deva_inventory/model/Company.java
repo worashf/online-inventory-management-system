@@ -23,7 +23,7 @@ public class Company implements Serializable{
       @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
        @Column(name="comp_id")
-      private Long companyId;
+      private Integer companyId;
       
       @Column(name="comp_name")
       private String companyName;
@@ -55,13 +55,15 @@ public class Company implements Serializable{
         this.address = address;
     }
 
-    public Long getCompanyId() {
+    public Integer getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Long companyId) {
+    public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
+
+
 
     public String getCompanyName() {
         return companyName;

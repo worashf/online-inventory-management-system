@@ -6,6 +6,7 @@
 package com.inventory.deva_inventory.service;
 
 import com.inventory.deva_inventory.model.Company;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,9 @@ import com.inventory.deva_inventory.model.Company;
  */
 public interface CompanyService {
     public Company saveCompany(Company com);
-    public Company editCompany(Company com);
+    public Company editCompany(Integer companyId,Company com);
+    public  List<Company> getCompany();
+    
+    
+
 }

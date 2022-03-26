@@ -6,18 +6,19 @@
 package com.inventory.deva_inventory.service;
 
 import com.inventory.deva_inventory.model.Brand;
+import java.util.List;
 
 /**
  *
  * @author best
  */
 public interface BrandService {
-     public Brand findBrandById(Long brandId);
+     public Brand findBrandById(Integer brandId);
      public Brand findBrandByName(String brandName);
      public Brand  saveBrand( Brand b);
-     public Brand  deleteBrand(Long brandId);
-     public Brand  editBrand(Brand b);
-     public Brand listAllBrand();
+     public void deleteBrand( Integer brandId);
+     public Brand  editBrand(Integer brandId,Brand b);
+     public List<Brand> listAllBrand();
      
      
      

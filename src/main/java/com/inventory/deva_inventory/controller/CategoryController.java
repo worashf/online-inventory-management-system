@@ -6,13 +6,16 @@
 package com.inventory.deva_inventory.controller;
 
 
-import com.inventory.deva_inventory.dto.CategoryDto;
+
 import com.inventory.deva_inventory.model.Category;
 import com.inventory.deva_inventory.service.CategoryService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,12 +44,11 @@ public class CategoryController {
         return ResponseEntity.accepted().headers(headers).body(savedCat);
     }
     
-        @PutMapping("/update-categories")
-    public ResponseEntity<Category> updateCategory(@RequestBody Category cat){
-         Category updatedCat = catService.editCategory(cat);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Responded", "CategoryController");
-        return ResponseEntity.accepted().headers(headers).body(updatedCat);
+        @PutMapping("/update-categories/{categoryId}")
+    public ResponseEntity<Category> updateCategory(@PathVariable Integer categoryId,@RequestBody Category cat){
+         Category updatedCat = catService.editCategory(categoryId,cat);
+       
+        return ResponseEntity.ok(updatedCat);
     }
  @GetMapping("/categories")
  public  ResponseEntity<List<Category>> ListAllCategories(){
@@ -63,6 +65,16 @@ public class CategoryController {
       Category catByName = catService.findCategoryByName(categoryName);
      
        return ResponseEntity.ok().body(catByName);
+ 
+}
+   @DeleteMapping("/categories/{categoryId}")
+ public ResponseEntity<Map<String, Boolean>> getCategoryByName(@PathVariable  Integer categoryId){
+          
+     catService.deleteCategory(categoryId);
+     
+     Map<String,Boolean> response = new HashMap<>();
+      response.put("deleted", Boolean.TRUE);
+       return ResponseEntity.ok(response);
  
 }
 }

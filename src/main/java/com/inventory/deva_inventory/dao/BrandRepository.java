@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author best
  */
 @Repository
-public interface BrandRepository extends JpaRepository<Brand, Long>{
-      public Brand findByBrandId(Long brandId);
+public interface BrandRepository extends JpaRepository<Brand, Integer>{
+      public Brand findByBrandId(Integer brandId);
      public Brand findByBrandName( String brandName);
 }

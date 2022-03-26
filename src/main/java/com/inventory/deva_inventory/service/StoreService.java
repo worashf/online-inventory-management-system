@@ -5,10 +5,17 @@
  */
 package com.inventory.deva_inventory.service;
 
+import com.inventory.deva_inventory.model.Store;
+import java.util.List;
+
 /**
  *
  * @author best
  */
 public interface StoreService {
+    public Store saveStore(Integer compId, Store store);
+    public Store updateStore(Integer storeId,Store store);
+    public List<Store> getAllStores();
+    public void deleteStore(Integer storeId);
     
 }

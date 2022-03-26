@@ -27,22 +27,24 @@ public class Brand  implements  Serializable{
     @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
        @Column(name="brand_id")
-    private  Long brandId;
+    private  Integer brandId;
     @Column(name="brand_name")
     private String brandName;
     @Column(name="brand_description")
-    private String brandDesc;
+    private String brandDescription;
     
     @OneToMany(mappedBy = "brand" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Product> products;
 
-    public Long getBrandId() {
+    public Integer getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(Long brandId) {
+    public void setBrandId(Integer brandId) {
         this.brandId = brandId;
     }
+
+  
 
     public String getBrandName() {
         return brandName;
@@ -52,13 +54,15 @@ public class Brand  implements  Serializable{
         this.brandName = brandName;
     }
 
-    public String getBrandDesc() {
-        return brandDesc;
+    public String getBrandDescription() {
+        return brandDescription;
     }
 
-    public void setBrandDesc(String brandDesc) {
-        this.brandDesc = brandDesc;
+    public void setBrandDescription(String brandDescription) {
+        this.brandDescription = brandDescription;
     }
+
+
 
     public List<Product> getProducts() {
         return products;

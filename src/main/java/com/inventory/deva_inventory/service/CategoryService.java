@@ -19,8 +19,9 @@ public interface CategoryService {
   
     public Category searchByCategoryId( Integer categoryId);
     public List<Category> ListAllCategory();
-    public Category  editCategory(Category cat);
+    public Category editCategory(Integer catId,Category cat);
     public Category findCategoryByName(String categoryName);
+    public void deleteCategory(Integer catId);
     
     
     

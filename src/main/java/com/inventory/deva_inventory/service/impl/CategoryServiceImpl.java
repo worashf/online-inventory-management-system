@@ -6,12 +6,12 @@
 package com.inventory.deva_inventory.service.impl;
 
 import com.inventory.deva_inventory.dao.CategoryRepository;
-import com.inventory.deva_inventory.dto.CategoryDto;
+
 import com.inventory.deva_inventory.model.Category;
 import com.inventory.deva_inventory.service.CategoryService;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,23 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository catRepo;
 
-    public CategoryDto convertCategoryEntityToCategoryDto(Category cat) {
 
-        CategoryDto catDto = new CategoryDto();
-        catDto.setCategoryId(cat.getCategoryId());
-        catDto.setCategoryName(cat.getCategoryName());
-        catDto.setCategoryDescription(cat.getCategoryDescription());
-        return catDto;
-    }
 
-    public Category convertCategoryDtoToCategoryEntity(CategoryDto catDto) {
-
-        Category cat = new Category();
-        cat.setCategoryId(catDto.getCategoryId());
-        cat.setCategoryName(catDto.getCategoryName());
-        cat.setCategoryDescription(catDto.getCategoryDescription());
-        return cat;
-    }
 
     @Override
     public Category AddCategory(Category cat) {
@@ -73,8 +58,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> ListAllCategory() {
-        
-        List<Category> catList = catRepo.findAll();
+      List<Category> catList  =null;
+        try {
+            catList =catRepo.findAll();
+        } catch (Exception e) {
+            catList =null;
+        }
+      
       
       
 return catList;
@@ -82,27 +72,22 @@ return catList;
     }
 @Transactional
     @Override
-    public Category editCategory(Category cat) {
-//       CategoryDto cat_dto = searchByCategoryId(convertCategoryDtoToCategoryEntity(catDto).getCategoryId());
-//         
-//        Category cat = new Category();
-//        cat.setCategoryId(cat_dto.getCategoryId());
-//        cat.setCategoryName(cat_dto.getCategoryName());
-//        cat.setCategoryDescription(cat_dto.getCategoryDescription());
-//        
-//        Category editedCat = catRepo.save(cat);
-//        CategoryDto savedDto = convertCategoryEntityToCategoryDto(editedCat);
+    public Category editCategory(Integer catId,Category catDetail) {
+
         Category updatedCat = null;
         try {
-            Category cat1 =null;
-            cat1 = catRepo.getById(cat.getCategoryId());
-           
+          Category  cat;
+            cat = catRepo.getById(catId);
+
             System.out.println(cat.getCategoryId() + " data " + cat.getCategoryName());
-            Integer catId = catRepo.editCategory(cat1.getCategoryId(), cat1.getCategoryName(), cat1.getCategoryDescription());
-              System.out.println(catId);
-             updatedCat = catRepo.findBycategoryName(cat1.getCategoryName());
+ 
+             cat.setCategoryName(catDetail.getCategoryName());
+             cat.setCategoryDescription(catDetail.getCategoryDescription());
+             
+      
+             updatedCat= catRepo.save(cat);
            
-            System.out.println(updatedCat);
+            System.out.println(updatedCat.getCategoryName());
        } catch (Exception e) {
             updatedCat= null;
             System.out.println(e.getMessage());
@@ -117,6 +102,15 @@ return catList;
         Category cat = catRepo.findBycategoryName(categoryName);
        
         return cat;
+    }
+
+    @Override
+    public void deleteCategory(Integer catId) {
+        try {
+             catRepo.deleteById(catId);
+            
+        } catch (Exception e) {
+        }
     }
 
   

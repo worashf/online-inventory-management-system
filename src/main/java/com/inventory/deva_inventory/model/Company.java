@@ -6,6 +6,7 @@
 package com.inventory.deva_inventory.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 
@@ -34,11 +35,11 @@ public class Company implements Serializable{
       private String phone2;
       @Column(name="comp_email")
       private String email;
-      @OneToMany(mappedBy = "company" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+      @OneToMany(mappedBy = "company" , cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Store>  store;
-   @OneToOne(mappedBy ="company",fetch = FetchType.LAZY)
-    private Address address;
-
+//   @OneToOne(mappedBy ="company",fetch = FetchType.EAGER)
+//    private Address address;
+    @JsonManagedReference
     public List<Store> getStore() {
         return store;
     }
@@ -47,13 +48,13 @@ public class Company implements Serializable{
         this.store = store;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
 
     public Integer getCompanyId() {
         return companyId;

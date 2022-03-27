@@ -5,7 +5,9 @@
  */
 package com.inventory.deva_inventory.controller;
 
+import com.inventory.deva_inventory.model.Address;
 import com.inventory.deva_inventory.model.Store;
+import com.inventory.deva_inventory.service.AddressService;
 import com.inventory.deva_inventory.service.StoreService;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,8 @@ public class StoreController {
     
     @Autowired
     private StoreService storeService;
+    @Autowired
+    private AddressService addressService;
     
   @PostMapping("/stores/{companyId}")
     public ResponseEntity<Store> saveStore(@PathVariable Integer companyId ,@RequestBody Store storeData){
@@ -54,5 +58,15 @@ public class StoreController {
         Map<String,Boolean> response = new HashMap<>();
          response.put("deleted", Boolean.TRUE);
          return ResponseEntity.ok(response);
+    }
+    @PostMapping("/stores/address/{storeId}")
+      public ResponseEntity<Address> saveStoreAddress(@PathVariable Integer storeId ,@RequestBody Address addressData){
+//          System.out.println(storeId);
+     Address address = addressService.saveStoreAddress(storeId, addressData);
+               
+        if(address == null){
+            ResponseEntity.ok().body("error");
+        }
+        return  ResponseEntity.ok().body(address);
     }
 }

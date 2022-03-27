@@ -54,8 +54,8 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Transactional
     @Override
-    public Company getCompany() {
-      Company listComp =null;
+    public  Company  findCompany() {
+       Company   listComp =null;
         try {
             listComp = compRepo.getcompany();
         } catch (Exception e) {

@@ -15,7 +15,7 @@ import java.util.List;
 public interface CompanyService {
     public Company saveCompany(Company com);
     public Company editCompany(Integer companyId,Company com);
-    public  Company getCompany();
+    public  Company findCompany();
     
     
 

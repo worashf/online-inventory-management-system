@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface StoreRepository  extends JpaRepository<Store, Integer>{
-    
+        public Store findByStoreId(Integer storeId);
 }

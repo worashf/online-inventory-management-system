@@ -5,6 +5,8 @@
  */
 package com.inventory.deva_inventory.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -42,15 +44,16 @@ public class Store  implements    Serializable{
     @Column(name = "room")
     private int room;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name ="comp_id")
     private Company company;
     
-   @OneToOne(mappedBy ="store",fetch = FetchType.LAZY)
+   @OneToOne(mappedBy ="store",fetch = FetchType.EAGER)
       private Address address;
    @OneToMany(mappedBy = "store" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private List<Inventory> inventories;
 
+   @JsonManagedReference
     public Address getAddress() {
         return address;
     }
@@ -92,7 +95,7 @@ public class Store  implements    Serializable{
     public void setStoreSize(int storeSize) {
         this.storeSize = storeSize;
     }
-
+ @JsonBackReference
     public Company getCompany() {
         return company;
     }

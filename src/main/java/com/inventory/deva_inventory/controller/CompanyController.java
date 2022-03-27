@@ -41,8 +41,8 @@ public class CompanyController {
         return ResponseEntity.ok(comp);
     }
     @GetMapping("/company")
-    public ResponseEntity<List<Company>> getAllCompany(){
-         List<Company> listCompany = compService.getCompany();
+    public ResponseEntity<Company> getAllCompany(){
+         Company listCompany = compService.getCompany();
         return ResponseEntity.ok(listCompany);
     }
     

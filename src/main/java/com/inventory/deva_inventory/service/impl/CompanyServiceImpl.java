@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -51,11 +52,12 @@ public class CompanyServiceImpl implements CompanyService{
         return comp;
     }
 
+    @Transactional
     @Override
-    public List<Company> getCompany() {
-      List<Company> listComp =null;
+    public Company getCompany() {
+      Company listComp =null;
         try {
-            listComp = compRepo.findAll();
+            listComp = compRepo.getcompany();
         } catch (Exception e) {
             listComp =null;
         }

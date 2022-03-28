@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author best
  */
 @Repository
-public interface SupplierRepository extends JpaRepository<Supplier, Long>{
+public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
     
 }

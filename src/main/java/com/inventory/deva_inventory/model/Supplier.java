@@ -26,11 +26,9 @@ public class Supplier implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="supplier_id")
-    private long  supplier_id;
-    @Column(name="first_name")
-    private String first_name;
-    @Column(name="last_name")
-    private  String last_name;
+    private Integer  supplierId;
+    @Column(name="supplier_name")
+    private String supplierName;
     @Column(name="email")
     private  String email;
     @Column(name="phone1")
@@ -38,36 +36,30 @@ public class Supplier implements Serializable{
     @Column(name="phone2")
     private String phone2;
        @Column(name="user_name")
-     private String user_name;
+     private String userName;
      @Column(name="password")
      private String password;
-     @Column(name="user_status")
-     private String user_status;
+     @Column(name="supplier_status")
+     private String supplierStatus;
       @OneToOne(mappedBy ="supplier",fetch = FetchType.LAZY)
     private Address address;
 
-    public long getSupplier_id() {
-        return supplier_id;
+    public Integer getSupplierId() {
+        return supplierId;
     }
 
-    public void setSupplier_id(long supplier_id) {
-        this.supplier_id = supplier_id;
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
     }
 
-    public String getFirst_name() {
-        return first_name;
+  
+
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
     public String getEmail() {
@@ -94,12 +86,12 @@ public class Supplier implements Serializable{
         this.phone2 = phone2;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -110,13 +102,17 @@ public class Supplier implements Serializable{
         this.password = password;
     }
 
-    public String getUser_status() {
-        return user_status;
+    public String getSupplierStatus() {
+        return supplierStatus;
     }
 
-    public void setUser_status(String user_status) {
-        this.user_status = user_status;
+    public void setSupplierStatus(String supplierStatus) {
+        this.supplierStatus = supplierStatus;
     }
+
+ 
+
+  
 
     public Address getAddress() {
         return address;
@@ -125,8 +121,7 @@ public class Supplier implements Serializable{
     public void setAddress(Address address) {
         this.address = address;
     }
-    
-    
+
     
      
 }

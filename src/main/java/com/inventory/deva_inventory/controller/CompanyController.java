@@ -6,9 +6,9 @@
 package com.inventory.deva_inventory.controller;
 
 import com.inventory.deva_inventory.model.Company;
-import com.inventory.deva_inventory.model.Store;
+
 import com.inventory.deva_inventory.service.CompanyService;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

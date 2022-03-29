@@ -5,13 +5,16 @@
  */
 package com.inventory.deva_inventory.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -44,6 +47,19 @@ public class Supplier implements Serializable{
       @OneToOne(mappedBy ="supplier",fetch = FetchType.LAZY)
     private Address address;
 
+      @OneToMany(mappedBy = "supplier",fetch = FetchType.LAZY)
+      private List<Order> orders;
+
+         @JsonManagedReference
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+  
     public Integer getSupplierId() {
         return supplierId;
     }

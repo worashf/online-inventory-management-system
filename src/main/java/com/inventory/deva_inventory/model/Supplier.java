@@ -5,6 +5,7 @@
  */
 package com.inventory.deva_inventory.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -46,11 +47,36 @@ public class Supplier implements Serializable{
      private String supplierStatus;
       @OneToOne(mappedBy ="supplier",fetch = FetchType.LAZY)
     private Address address;
-
+     @JsonIgnore
       @OneToMany(mappedBy = "supplier",fetch = FetchType.LAZY)
       private List<Order> orders;
+      @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)
+      private List<Product> products;
 
-         @JsonManagedReference
+        @OneToOne(mappedBy ="supplier",fetch = FetchType.EAGER)
+      private User user;
+   
+      @JsonManagedReference(value = "user-supplier")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+        
+        
+      @JsonManagedReference(value = "product-supplier")
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+      
+
+         @JsonManagedReference(value = "supplier-order")
     public List<Order> getOrders() {
         return orders;
     }
@@ -129,7 +155,7 @@ public class Supplier implements Serializable{
  
 
   
-
+   @JsonManagedReference(value = "supplier-address")
     public Address getAddress() {
         return address;
     }

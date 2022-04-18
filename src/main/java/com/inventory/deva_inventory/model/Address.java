@@ -120,7 +120,7 @@ public class Address  implements Serializable{
 
    
 
-    @JsonBackReference
+    @JsonBackReference(value = "store-address")
     public Store getStore() {
         return store;
     }
@@ -128,7 +128,7 @@ public class Address  implements Serializable{
     public void setStore(Store store) {
         this.store = store;
     }
-
+@JsonBackReference(value = "supplier-address")
     public Supplier getSupplier() {
         return supplier;
     }

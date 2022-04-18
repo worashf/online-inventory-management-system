@@ -13,10 +13,19 @@ import java.util.List;
  * @author best
  */
 public interface SupplierService {
+
     public Supplier saveSupplier(Supplier sup);
-    public Supplier updateSupplier(Integer supId,Supplier sup);
+
+    public Supplier updateSupplier(Integer supId, Supplier sup);
+
     public Supplier changeSupplierStatus(Integer supId, String supplierStatus);
-    public void  deleteSupplier (Integer supId);
+
+    public void deleteSupplier(Integer supId);
+
     public List<Supplier> getAllSupplier();
-    
+
+    public Supplier approveSupplier(Integer supId,Supplier sup);
+
+    public Supplier declineSupplier(Integer supId);
+  public  Supplier  findSupplierByUser(String userName);
 }

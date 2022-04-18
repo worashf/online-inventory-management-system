@@ -5,6 +5,8 @@
  */
 package com.inventory.deva_inventory.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -32,13 +34,14 @@ public class Inventory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long inventory_id;
+    @Column(name="inventory_id")
+    private Integer inventoryId;
     @Column(name = "inventory_name")
-    private String inventory_name;
+    private String inventoryName;
   
     @Column(name = "inventory_date")
     @Temporal(TemporalType.DATE)
-    private Date inventory_date;
+    private Date inventoryDate;
 
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;
@@ -46,30 +49,33 @@ public class Inventory implements Serializable {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    public Long getInventory_id() {
-        return inventory_id;
+    public Integer getInventoryId() {
+        return inventoryId;
     }
 
-    public void setInventory_id(Long inventory_id) {
-        this.inventory_id = inventory_id;
+    public void setInventoryId(Integer inventoryId) {
+        this.inventoryId = inventoryId;
     }
 
-    public String getInventory_name() {
-        return inventory_name;
+    
+
+    public String getInventoryName() {
+        return inventoryName;
     }
 
-    public void setInventory_name(String inventory_name) {
-        this.inventory_name = inventory_name;
+    public void setInventoryName(String inventoryName) {
+        this.inventoryName = inventoryName;
     }
 
-    public Date getInventory_date() {
-        return inventory_date;
+    public Date getInventoryDate() {
+        return inventoryDate;
     }
 
-    public void setInventory_date(Date inventory_date) {
-        this.inventory_date = inventory_date;
+    public void setInventoryDate(Date inventoryDate) {
+        this.inventoryDate = inventoryDate;
     }
 
+    @JsonManagedReference(value = "product-inventory")
     public List<Product> getProducts() {
         return products;
     }
@@ -78,7 +84,10 @@ public class Inventory implements Serializable {
         this.products = products;
     }
 
-    public Store getStore() {
+    
+    @JsonBackReference(value = "inventory-store")
+      public Store getStore() {
+  
         return store;
     }
 
@@ -86,5 +95,6 @@ public class Inventory implements Serializable {
         this.store = store;
     }
     
-
+    
+    
 }

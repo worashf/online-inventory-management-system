@@ -36,7 +36,7 @@ public class CategoryController {
     @Autowired
      private CategoryService catService;
     
-    @PostMapping("categories")
+    @PostMapping("/categories")
     public ResponseEntity<Category> createCategory(@RequestBody Category cat){
          Category savedCat = catService.AddCategory(cat);
         HttpHeaders headers = new HttpHeaders();

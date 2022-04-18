@@ -5,17 +5,22 @@
  */
 package com.inventory.deva_inventory.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,23 +29,25 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="user")
-public class UserEntity implements Serializable{
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long user_id;
+    @Column(name="user_id")
+    private Integer userId;
     @Column(name="first_name")
-    private String first_name;
+    private String firstName;
     @Column(name="last_name")
-    private  String last_name;
+    private  String lastName;
     @Column(name="email")
     private  String email;
     @Column(name="user_name")
-     private String user_name;
+     private String userName;
      @Column(name="password")
      private String password;
      @Column(name="user_status")
-     private String user_status;
-      @ManyToMany(
+     private String userStatus;
+   @JsonIgnore
+       @ManyToMany(fetch = FetchType.EAGER,
         cascade= {CascadeType.DETACH, CascadeType.MERGE,
 		CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(
@@ -48,7 +55,20 @@ public class UserEntity implements Serializable{
 				joinColumns=@JoinColumn(name="user_id"),
 				inverseJoinColumns=@JoinColumn(name="role_id"))
         private Set<Role> roles;
+ @OneToOne
+ @JoinColumn(name = "supplier_id")
+ private Supplier supplier;
+   
+      @JsonBackReference(value = "user-supplier")
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+ 
+ 
     public Set<Role> getRoles() {
         return roles;
     }
@@ -56,33 +76,31 @@ public class UserEntity implements Serializable{
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-      
-      
-      
-      
-      
-    public Long getUser_id() {
-        return user_id;
+
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getFirst_name() {
-        return first_name;
+  
+
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -93,12 +111,12 @@ public class UserEntity implements Serializable{
         this.email = email;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -109,13 +127,23 @@ public class UserEntity implements Serializable{
         this.password = password;
     }
 
-    public String getUser_status() {
-        return user_status;
+    public String getUserStatus() {
+        return userStatus;
     }
 
-    public void setUser_status(String user_status) {
-        this.user_status = user_status;
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
     }
-    
+      
+      
+       public void addRole(Role role){
+		
+		if (roles == null){
+			roles = new HashSet<Role>();
+		}
+		
+		roles.add(role);
+	}
+   
     
 }

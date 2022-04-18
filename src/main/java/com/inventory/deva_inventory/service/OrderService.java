@@ -17,5 +17,6 @@ public interface OrderService {
      public void deleteOrder ( Integer orderId);
      public Order  editOrder (Integer orderId,Order  order);
      public List<Order> listAllOrder ();   
+       public List<Order> listAllOrderBySupplierId(Integer supplierId);   
     
 }

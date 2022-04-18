@@ -56,6 +56,8 @@ public class OrderServiceImpl implements OrderService{
              or.setOrderName(order.getOrderName());
              or.setOrderType(order.getOrderType());
              or.setDescription(order.getDescription());
+             or.setOrderNumber(order.getOrderNumber());
+             or  = orderRepo.save(or);
             
         } catch (Exception e) {
             or=null;
@@ -77,6 +79,19 @@ public class OrderServiceImpl implements OrderService{
         }
         return orderList;
         
+    }
+
+    @Override
+    public List<Order> listAllOrderBySupplierId(Integer supplierId) {
+        List<Order> listOrder =null;
+
+        try {
+            listOrder = orderRepo.getOrderBySupplierId(supplierId);
+        } 
+        catch (Exception e) {
+            listOrder =null;
+        }
+     return listOrder;
     }
     
 }

@@ -5,8 +5,10 @@
 package com.inventory.deva_inventory.controller;
 
 import com.inventory.deva_inventory.model.Order;
+import com.inventory.deva_inventory.model.Supplier;
 
 import com.inventory.deva_inventory.service.OrderService;
+import com.inventory.deva_inventory.service.SupplierService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,8 @@ public class OrderController {
   
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private SupplierService supService;
             
     @PostMapping("/orders/{supplierId}")
     public ResponseEntity<Order> saveOrder(@PathVariable Integer supplierId ,@RequestBody Order orderData){ 
@@ -42,13 +46,19 @@ public class OrderController {
     public ResponseEntity<Order> updateOrder(@PathVariable Integer orderId,@RequestBody Order orderData){
         
          Order order = orderService.editOrder(orderId, orderData);
-        
+       
         return ResponseEntity.ok().body(order);
     }
     @GetMapping("/orders")
     public ResponseEntity<List<Order>> getAllOrders(){
        
          List<Order> listOrder = orderService.listAllOrder();
+        return ResponseEntity.ok().body(listOrder);
+    }
+      @GetMapping("/orders/{userName}")
+    public ResponseEntity<List<Order>> getAllOrdersSupplierId(@PathVariable String userName){
+          Supplier sup = supService.findSupplierByUser(userName);
+         List<Order> listOrder = orderService.listAllOrderBySupplierId(sup.getSupplierId());
         return ResponseEntity.ok().body(listOrder);
     }
     @DeleteMapping("/orders/{orderId}")

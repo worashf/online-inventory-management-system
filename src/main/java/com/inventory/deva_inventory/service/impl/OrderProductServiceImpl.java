@@ -13,6 +13,7 @@ import com.inventory.deva_inventory.service.OrderProductService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -31,7 +32,7 @@ private  OrderRepository orderRepo;
         try {
             order = orderRepo.getById(orderId);
              orderPro.setOrder(order);
-             order.getOrderProducts().add(orderPro);
+//             order.getOrderProducts().add(orderPro);
             orderPro = orderProductRepo.save(orderPro);
         } catch (Exception e) {
             orderPro =null;
@@ -72,6 +73,19 @@ private  OrderRepository orderRepo;
             listOrderProduct =null;
         }
         return listOrderProduct;
+    }
+
+    @Transactional
+    @Override
+    public List<OrderProduct> listAllOrderProductById(Integer orderId) {
+        List<OrderProduct> listOrderPro = null;
+        try {
+           listOrderPro = orderProductRepo.getAllProductById(orderId);
+           
+        } catch (Exception e) {
+            listOrderPro =null;
+        }
+        return listOrderPro;
     }
     
 }

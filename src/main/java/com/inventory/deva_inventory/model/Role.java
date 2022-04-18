@@ -23,20 +23,22 @@ public class Role implements Serializable{
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(name="role_id")
-     private Long roleId;
+     private Integer roleId;
      @Column(name="role_name")
      private String roleName;
+
      @Column(name ="role_desscription")
      private String roleDescription;
 
-    public Long getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
+ 
     public String getRoleName() {
         return roleName;
     }

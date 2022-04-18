@@ -5,7 +5,7 @@
  */
 package com.inventory.deva_inventory.dao;
 
-import com.inventory.deva_inventory.model.UserEntity;
+import com.inventory.deva_inventory.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author best
  */
 @Repository
-public interface UserRepository  extends JpaRepository<UserEntity, Long>{
-    
+public interface UserRepository  extends JpaRepository<User, Integer>{
+     public User  findByUserName(String userName);
 }

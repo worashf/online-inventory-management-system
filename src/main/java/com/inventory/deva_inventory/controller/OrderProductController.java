@@ -4,7 +4,7 @@
  */
 package com.inventory.deva_inventory.controller;
 
-import com.inventory.deva_inventory.model.Order;
+
 import com.inventory.deva_inventory.model.OrderProduct;
 import com.inventory.deva_inventory.service.OrderProductService;
 import java.util.HashMap;
@@ -33,9 +33,9 @@ public class OrderProductController {
     
     
     @PostMapping("/order-products/{orderId}")
-    public ResponseEntity<OrderProduct> saveOrderProduct(@PathVariable Integer orderId ,@RequestBody OrderProduct orderProData){ 
+   public ResponseEntity<OrderProduct> saveOrderProduct(@PathVariable Integer orderId ,@RequestBody OrderProduct orderProData){ 
                 OrderProduct orderPro = orderProductService.saveOrderProduct(orderId, orderProData);
-      
+              System.out.println(orderId);
         return  ResponseEntity.ok().body(orderPro);
     }
     @PutMapping("/order-products/{orderProductId}")
@@ -49,6 +49,12 @@ public class OrderProductController {
     public ResponseEntity<List<OrderProduct>> getAllOrderProducts(){
        
          List<OrderProduct> listOrderPro = orderProductService.listAllOrderProduct();
+        return ResponseEntity.ok().body(listOrderPro);
+    }
+       @GetMapping("/order-products/{orderId}")
+    public ResponseEntity<List<OrderProduct>> getAllOrderProductsByOrderId(@PathVariable Integer orderId){
+       
+         List<OrderProduct> listOrderPro = orderProductService.listAllOrderProductById(orderId);
         return ResponseEntity.ok().body(listOrderPro);
     }
     @DeleteMapping("/order-products/{orderProductId}")

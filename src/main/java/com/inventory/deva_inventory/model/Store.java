@@ -53,7 +53,7 @@ public class Store  implements    Serializable{
    @OneToMany(mappedBy = "store" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private List<Inventory> inventories;
 
-   @JsonManagedReference
+   @JsonManagedReference(value = "store-address")
     public Address getAddress() {
         return address;
     }
@@ -62,6 +62,7 @@ public class Store  implements    Serializable{
         this.address = address;
     }
 
+    @JsonManagedReference(value = "inventory-store")
     public List<Inventory> getInventories() {
         return inventories;
     }

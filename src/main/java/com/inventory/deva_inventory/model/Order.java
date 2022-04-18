@@ -5,6 +5,7 @@
 package com.inventory.deva_inventory.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 /**
@@ -36,18 +38,64 @@ public class Order implements Serializable {
     private String orderName;
     @Column(name = "order_type")
     private String orderType;
-  
+    @Column(name = "order_number")
+    private String orderNumber;
+   @Column(name = "order_status")
+   private String orderStatus;
     @Column(name ="description")
     private String description;
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
     
      @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private List<OrderProduct> orderProducts;
       
+     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+     private List<Product> products;
+     
     @ManyToOne
     @JoinColumn(name ="supplier_id")
     private Supplier supplier;
 
-    @JsonBackReference
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
+    private SaleOrder saleOrder;
+    @JsonManagedReference(value = "order-saleOrder")
+    public SaleOrder getSaleOrder() {
+        return saleOrder;
+    }
+    public void setSaleOrder(SaleOrder saleOrder) {
+        this.saleOrder = saleOrder;
+    }
+    
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    
+    
+    @JsonManagedReference(value = "product-order")
+    public List<Product> getProducts() {
+        return products;
+    }
+    
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+    
+    
+
+    @JsonBackReference(value = "supplier-order")
     public Supplier getSupplier() {
         return supplier;
     }
@@ -88,7 +136,7 @@ public class Order implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
+   @JsonManagedReference(value = "order-product")
     public List<OrderProduct> getOrderProducts() {
         return orderProducts;
     }

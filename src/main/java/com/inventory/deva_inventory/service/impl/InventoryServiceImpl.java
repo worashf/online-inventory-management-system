@@ -5,8 +5,17 @@
  */
 package com.inventory.deva_inventory.service.impl;
 
+import com.inventory.deva_inventory.dao.InventoryRepository;
+import com.inventory.deva_inventory.dao.StoreRepository;
+import com.inventory.deva_inventory.model.Inventory;
+import com.inventory.deva_inventory.model.Store;
 import com.inventory.deva_inventory.service.InventoryService;
+import java.util.Date;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -14,5 +23,81 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class InventoryServiceImpl implements InventoryService{
+
+    @Autowired
+    private InventoryRepository inventoryRepo;
+    @Autowired
+    private StoreRepository storeRepo;
+    
+    @Override
+    public Inventory saveInventory(Integer storeId, Inventory inventory) {
+        
+        Store store =null;
+      
+        try {
+            store = storeRepo.getById(storeId);
+            Date date = new Date();
+               inventory.setInventoryDate(date);
+               inventory.setStore(store);
+               inventory = inventoryRepo.save(inventory);
+            
+        } catch (Exception e) {
+            inventory =null;
+        }
+        return inventory;
+    }
+
+    @Override
+    public void deleteInventory(Integer inventoryId) {
+        try {
+             inventoryRepo.deleteById(inventoryId);
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public Inventory editInventory(Integer inventoryId,Integer storeId,Inventory inventory) {
+       
+         Inventory inv =null;
+         Store store =null;
+        try {
+            inv = inventoryRepo.getById(inventoryId);
+             store = storeRepo.getById(storeId);
+            inv.setInventoryName(inventory.getInventoryName());
+            inv.setInventoryDate(inventory.getInventoryDate());
+            inv.setStore(store);
+            
+            inv = inventoryRepo.save(inv);
+        } catch (Exception e) {
+            inv =null;
+        }
+        return inv;
+    }
+
+    @Override
+    public List<Inventory> listAllInventorys() {
+         List<Inventory> listInventory =null;
+        try {
+             listInventory = inventoryRepo.findAll();
+        } catch (Exception e) {
+            listInventory = null;
+        }
+        return listInventory;
+    }
+@Transactional
+    @Override
+    public List<Inventory> listAllInventorysByStoreId(Integer storeId) {
+       List<Inventory> listInventory =null;
+       
+        try {
+             listInventory = inventoryRepo.getAllInventoryByStoreId(storeId);
+        } catch (Exception e) {
+            
+            listInventory  =null;
+        }
+       
+        return listInventory;
+
+    }
     
 }

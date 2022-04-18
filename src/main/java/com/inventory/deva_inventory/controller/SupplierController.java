@@ -47,6 +47,18 @@ public class SupplierController {
          List<Supplier> listSupplier = supplierService.getAllSupplier();
          return ResponseEntity.ok().body(listSupplier);
     }
+        @PutMapping("/suppliers/approve/{supplierId}")
+    public ResponseEntity<Supplier> approveSupplier(@PathVariable Integer supplierId,
+     @RequestBody Supplier sup){
+         Supplier supplier = supplierService.approveSupplier(supplierId,sup);
+            System.out.println(supplierId);
+         return ResponseEntity.ok().body(supplier);
+    }
+         @PutMapping("/suppliers/decline/{supplierId}")
+    public ResponseEntity<Supplier> declineSupplier(@PathVariable Integer supplierId){
+         Supplier supplier = supplierService.declineSupplier(supplierId);
+         return ResponseEntity.ok().body(supplier);
+    }
        @DeleteMapping("/suppliers/{supplierId}")
     public ResponseEntity<Map<String,Boolean>> deleteSupplier(@PathVariable Integer supplierId){
        supplierService.deleteSupplier(supplierId);

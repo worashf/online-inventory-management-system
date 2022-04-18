@@ -5,11 +5,16 @@
  */
 package com.inventory.deva_inventory.service.impl;
 
+import com.inventory.deva_inventory.dao.RoleRepository;
 import com.inventory.deva_inventory.dao.SupplierRepository;
+import com.inventory.deva_inventory.dao.UserRepository;
+import com.inventory.deva_inventory.model.Role;
 import com.inventory.deva_inventory.model.Supplier;
+import com.inventory.deva_inventory.model.User;
 import com.inventory.deva_inventory.service.SupplierService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +26,12 @@ public class SupplierServiceImpl implements SupplierService{
 
     @Autowired
     private SupplierRepository supRepo;
+    @Autowired
+    private RoleRepository roleRepo;
+    @Autowired
+    private  UserRepository userDao;
+        @Autowired
+private PasswordEncoder encoder;
     @Override
     public Supplier saveSupplier(Supplier sup) {
         try {
@@ -80,6 +91,51 @@ public class SupplierServiceImpl implements SupplierService{
             sup = null;
         }
         return sup;
+    }
+
+    @Override
+    public Supplier approveSupplier(Integer supId ,Supplier sup) {
+        Supplier supplier =null;
+        Role role =null;
+        User user =new User();
+        try {
+            supplier = supRepo.getById(supId);
+            role = roleRepo.findByRoleName("Supplier");
+            supplier.setSupplierStatus("approved");
+            supplier = supRepo.save(supplier);
+            user.setSupplier(supplier);
+            user.addRole(role);
+            user.setUserName(sup.getUserName());
+            user.setPassword(encoder.encode(sup.getPassword()));
+            user.setUserStatus("enabled");
+            user = userDao.save(user);
+        } catch (Exception e) {
+        }
+     return sup;
+    }
+
+    @Override
+    public Supplier declineSupplier(Integer supId) {
+       Supplier sup =null;
+        try {
+            sup = supRepo.getById(supId);
+            sup.setSupplierStatus("decline");
+            sup = supRepo.save(sup);
+        } catch (Exception e) {
+        }
+     return sup;
+    }
+
+    @Override
+    public Supplier findSupplierByUser(String userName) {
+        Supplier sup =null;
+        try {
+            sup = supRepo.getSupplierByUserName(userName);
+        } catch (Exception e) {
+            sup =null;
+        }
+    
+    return sup;
     }
     
 }

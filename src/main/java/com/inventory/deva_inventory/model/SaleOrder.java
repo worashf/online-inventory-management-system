@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="sale_order")
 public class SaleOrder implements  Serializable{
@@ -43,6 +44,20 @@ public class SaleOrder implements  Serializable{
 
       @OneToMany(mappedBy = "saleOrder" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private List<OrderProduct> orderProducts;
+      
+           @OneToMany(mappedBy = "saleOrder" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+     private List<SuppliedProduct> suppliedProducts;
+      
+     
+
+        @JsonManagedReference(value ="supplied-product")    
+    public List<SuppliedProduct> getSuppliedProducts() {
+        return suppliedProducts;
+    }
+
+    public void setSuppliedProducts(List<SuppliedProduct> suppliedProducts) {
+        this.suppliedProducts = suppliedProducts;
+    }
 
          @JsonManagedReference(value = "sale-order-product")
     public List<OrderProduct> getOrderProducts() {

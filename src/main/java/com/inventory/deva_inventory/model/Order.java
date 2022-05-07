@@ -5,6 +5,8 @@
 package com.inventory.deva_inventory.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -28,6 +30,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "order_table")
+
 public class Order implements Serializable {
 
     @Id
@@ -52,17 +55,17 @@ public class Order implements Serializable {
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
-    
-     @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-     private List<OrderProduct> orderProducts;
-      
-     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+         
+     @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL)
+     private List<OrderProduct> productsOrdered;
+   
+     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
      private List<Product> products;
      
     @ManyToOne
     @JoinColumn(name ="supplier_id")
     private Supplier supplier;
-
+    
     @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
     private SaleOrder saleOrder;
     @JsonManagedReference(value = "order-saleOrder")
@@ -82,8 +85,8 @@ public class Order implements Serializable {
     }
 
     
-    
-    @JsonManagedReference(value = "product-order")
+    @JsonManagedReference(value = "product-ordered")
+
     public List<Product> getProducts() {
         return products;
     }
@@ -136,14 +139,16 @@ public class Order implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-   @JsonManagedReference(value = "order-product")
-    public List<OrderProduct> getOrderProducts() {
-        return orderProducts;
+
+    @JsonManagedReference
+    public List<OrderProduct> getProductsOrdered() {
+        return productsOrdered;
     }
 
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
-        this.orderProducts = orderProducts;
+    public void setProductsOrdered(List<OrderProduct> productsOrdered) {
+        this.productsOrdered = productsOrdered;
     }
+ 
     
     
     

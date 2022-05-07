@@ -6,6 +6,7 @@
 package com.inventory.deva_inventory.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
@@ -38,11 +39,17 @@ public class Inventory implements Serializable {
     private Integer inventoryId;
     @Column(name = "inventory_name")
     private String inventoryName;
-  
+    @Column(name="inventory_code")
+    private String inventoryCode;
     @Column(name = "inventory_date")
     @Temporal(TemporalType.DATE)
     private Date inventoryDate;
-
+    @Column(name="reorder_level")
+    private Integer reorderLevel;
+    @Column(name="alert_level")
+    private Integer alertLevel;
+    
+     @JsonIgnore
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -93,6 +100,30 @@ public class Inventory implements Serializable {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public Integer getReorderLevel() {
+        return reorderLevel;
+    }
+
+    public void setReorderLevel(Integer reorderLevel) {
+        this.reorderLevel = reorderLevel;
+    }
+
+    public Integer getAlertLevel() {
+        return alertLevel;
+    }
+
+    public void setAlertLevel(Integer alertLevel) {
+        this.alertLevel = alertLevel;
+    }
+
+    public String getInventoryCode() {
+        return inventoryCode;
+    }
+
+    public void setInventoryCode(String inventoryCode) {
+        this.inventoryCode = inventoryCode;
     }
     
     

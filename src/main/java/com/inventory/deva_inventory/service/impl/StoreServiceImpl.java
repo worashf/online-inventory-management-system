@@ -25,12 +25,12 @@ public class StoreServiceImpl implements StoreService{
     @Autowired
    private CompanyRepository compRepo;
     @Override
-    public Store saveStore(Integer compId,Store storeData) {
+    public Store saveStore(Integer companyId,Store storeData) {
       
         try {
-            Company comp = compRepo.getById(compId);
+            Company comp = compRepo.getById(companyId);
          
-            
+//            
                storeData.setCompany(comp);
 //                comp.getStore().add(storeData);
                storeData= storeRepo.save(storeData);

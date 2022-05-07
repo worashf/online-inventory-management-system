@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -36,9 +37,11 @@ public class StoreController {
     @Autowired
     private AddressService addressService;
     
+
   @PostMapping("/stores/{companyId}")
-    public ResponseEntity<Store> saveStore(@PathVariable Integer companyId ,@RequestBody Store storeData){
+    public ResponseEntity<Store> saveStore(@PathVariable Integer companyId,@RequestBody Store storeData){
       Store store=  storeService.saveStore(companyId, storeData);
+      System.out.println(companyId);
         return  ResponseEntity.ok(store);
     }
     @PutMapping("/stores/{storeId}")

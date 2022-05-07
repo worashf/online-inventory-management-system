@@ -6,6 +6,7 @@
 package com.inventory.deva_inventory.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -26,6 +27,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="supplier")
+
 public class Supplier implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,15 +47,16 @@ public class Supplier implements Serializable{
      private String password;
      @Column(name="supplier_status")
      private String supplierStatus;
+   
       @OneToOne(mappedBy ="supplier",fetch = FetchType.LAZY)
     private Address address;
-     @JsonIgnore
-      @OneToMany(mappedBy = "supplier",fetch = FetchType.LAZY)
+       @JsonIgnore
+      @OneToMany(mappedBy = "supplier")
       private List<Order> orders;
-      @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)
+      @OneToMany(mappedBy = "supplier")
       private List<Product> products;
-
-        @OneToOne(mappedBy ="supplier",fetch = FetchType.EAGER)
+     @JsonIgnore
+        @OneToOne(mappedBy ="supplier")
       private User user;
    
       @JsonManagedReference(value = "user-supplier")

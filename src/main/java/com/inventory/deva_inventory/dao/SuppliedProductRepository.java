@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SuppliedProductRepository  extends JpaRepository<SuppliedProduct, Integer>{
-      @Query("SELECT sp FROM SuppliedProduct sp  JOIN  sp.saleOrder so  WHERE so.slaeOrderId =:saleOrderId")
+      @Query("SELECT sp FROM SuppliedProduct sp  JOIN  sp.saleOrder so  WHERE so.saleOrderId =:saleOrderId")
      List<SuppliedProduct>  getAllSuppliedProductBySaleOrderId(@Param (value ="saleOrderId") Integer saleOrderId);
        
 @Query("SELECT sp FROM SuppliedProduct sp LEFT OUTER JOIN  sp.saleOrder so "
@@ -23,5 +23,6 @@ public interface SuppliedProductRepository  extends JpaRepository<SuppliedProduc
                     + " o.orderId =:orderId")
  List<SuppliedProduct> getSuppliedProductByOrderId(@Param (value ="orderId") Integer orderId); 
 
-    
+ @Query("SELECT sp FROM SuppliedProduct sp   WHERE sp.suppliedProductStatus =:suppliedProductStatus")
+ List<SuppliedProduct>  getAllSupplieredProductStatus(@Param (value ="suppliedProductStatus") String suppliedProductStatus);
 }

@@ -5,6 +5,7 @@
 package com.inventory.deva_inventory.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class OrderProduct  implements Serializable{
     private Integer orderProductQuantity;
      @Column(name= "order_product_price")
      private Double orderProductPrice;
-     @ManyToOne(fetch = FetchType.LAZY)
+     @ManyToOne
      @JoinColumn(name ="order_id")
     private  Order order;
      @ManyToOne(fetch = FetchType.LAZY)
@@ -85,7 +86,8 @@ public class OrderProduct  implements Serializable{
         this.orderProductPrice = orderProductPrice;
     }
 
-    @JsonBackReference(value = "order-product")
+
+    @JsonBackReference
     public Order getOrder() {
         return order;
     }

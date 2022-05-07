@@ -6,6 +6,8 @@
 package com.inventory.deva_inventory.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -16,16 +18,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author best
- */
+
 @Entity
 @Table(name="product")
+
 public class Product implements Serializable{
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,6 +46,8 @@ public class Product implements Serializable{
      @Temporal(TemporalType.DATE)
      @Column(name="expiry_date")
      private Date expiryDate;
+     @Column(name="stock_status")
+     private String stockStatus;
    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name ="category_id")
    private Category category;
@@ -57,10 +60,24 @@ public class Product implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
+     
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "supplier_id")
     private  Supplier supplier;
+     
+    @OneToOne
+    @JoinColumn(name="suppliered_product_id")
+    private SuppliedProduct supProduct;
 
+    @JsonBackReference(value = "product-supplied-product")
+    public SuppliedProduct getSupProduct() {
+        return supProduct;
+    }
+
+    public void setSupProduct(SuppliedProduct supProduct) {
+        this.supProduct = supProduct;
+    }
+    
     @JsonBackReference(value = "product-supplier")
     public Supplier getSupplier() {
         return supplier;
@@ -71,7 +88,7 @@ public class Product implements Serializable{
     }
     
     
-    @JsonBackReference(value = "product-order")
+    @JsonBackReference(value = "product-ordered")
     public Order getOrder() {
         return order;
     }
@@ -159,6 +176,14 @@ public class Product implements Serializable{
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public String getStockStatus() {
+        return stockStatus;
+    }
+
+    public void setStockStatus(String stockStatus) {
+        this.stockStatus = stockStatus;
     }
     
 

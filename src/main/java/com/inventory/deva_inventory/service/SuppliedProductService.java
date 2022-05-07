@@ -20,4 +20,7 @@ public interface SuppliedProductService {
     public List<SuppliedProduct> listAllSuppliedProductBySaleOrderId(Integer saleOrderId);
 
     public List<SuppliedProduct> listAllSuppliedProductByrderId(Integer orderId);
+    
+    public List<SuppliedProduct> listAllSuppliedProductBySuppliedStatus();
+        public List<SuppliedProduct> listAllSuppliedProductBySuppliedRecieved();
 }

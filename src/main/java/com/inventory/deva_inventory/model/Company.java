@@ -6,6 +6,7 @@
 package com.inventory.deva_inventory.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Company implements Serializable{
     private List<Store>  store;
 //   @OneToOne(mappedBy ="company",fetch = FetchType.EAGER)
 //    private Address address;
-    @JsonManagedReference
+ @JsonManagedReference
     public List<Store> getStore() {
         return store;
     }

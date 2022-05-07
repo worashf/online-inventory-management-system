@@ -5,6 +5,8 @@
 package com.inventory.deva_inventory.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +25,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="sale_order")
+
 public class SaleOrder implements  Serializable{
       @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,11 +44,11 @@ public class SaleOrder implements  Serializable{
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order  order;
-
-      @OneToMany(mappedBy = "saleOrder" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+  @JsonIgnore
+      @OneToMany(mappedBy = "saleOrder" , cascade = CascadeType.ALL)
      private List<OrderProduct> orderProducts;
-      
-           @OneToMany(mappedBy = "saleOrder" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+        @JsonIgnore
+           @OneToMany(mappedBy = "saleOrder" , cascade = CascadeType.ALL)
      private List<SuppliedProduct> suppliedProducts;
       
      

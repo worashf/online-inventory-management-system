@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.inventory.deva_inventory.dao;
 
 import com.inventory.deva_inventory.model.Inventory;
@@ -12,13 +8,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author best
- */
+
 @Repository
-public interface InventoryRepository extends JpaRepository<Inventory, Integer>{
-     @Query("SELECT inv FROM Inventory inv  JOIN  inv.store s  WHERE s.storeId =:storeId")
-     List<Inventory>  getAllInventoryByStoreId(@Param (value ="storeId") Integer storeId);
-        
+public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
+
+    @Query("SELECT inv FROM Inventory inv  JOIN  inv.store s  WHERE s.storeId =:storeId")
+    List<Inventory> getAllInventoryByStoreId(@Param(value = "storeId") Integer storeId);
+
+    @Query("SELECT inv FROM Inventory inv   WHERE inv.inventoryCode=:inventoryCode")
+    Inventory getInventoryByInventoryCode(@Param(value = "inventoryCode") String InventoryCode);
+
+    @Query("SELECT inv FROM Inventory inv   WHERE inv.reorderLevel=:reorderLevel")
+    List<Inventory> getInventoryByReorderLevel(@Param(value = "reorderLevel") Integer reorderLevel);
+
+    @Query("SELECT inv FROM Inventory inv   WHERE inv.alertLevel=:alertLevel")
+    List<Inventory> getInventoryByAlertLevel(@Param(value = "alertLevel") Integer alertLevel);
+    
+    
+    
+
 }

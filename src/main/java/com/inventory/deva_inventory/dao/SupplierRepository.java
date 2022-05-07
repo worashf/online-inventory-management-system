@@ -11,10 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author best
- */
+
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
             @Query("SELECT s FROM Supplier s  LEFT OUTER JOIN  s.user u  WHERE"

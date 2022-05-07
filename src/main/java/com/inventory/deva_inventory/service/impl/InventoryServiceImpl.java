@@ -17,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * @author best
- */
+
 @Service
 public class InventoryServiceImpl implements InventoryService{
 
@@ -99,5 +96,44 @@ public class InventoryServiceImpl implements InventoryService{
         return listInventory;
 
     }
+
+    @Override
+    public Inventory findInventoryByInventoryCode(String inventoryCode) {
+        Inventory inv =null;
+        try {
+            inv = inventoryRepo.getInventoryByInventoryCode(inventoryCode);
+        } catch (Exception e) {
+            inv= null;
+        }
+    return inv;
+    }
+
+    @Override
+    public List<Inventory> findInventoryByReorderLevel(Integer reorderLevel) {
+         List<Inventory> listInventory =null;
+       
+        try {
+             listInventory = inventoryRepo.getInventoryByReorderLevel(reorderLevel);
+        } catch (Exception e) {
+            
+            listInventory  =null;
+        }
+       
+        return listInventory;
+    }
+
+    @Override
+    public List<Inventory> findInventoryByAlertLevel(Integer alertLevel) {
+ 
+           List<Inventory> listInventory =null;
+       
+        try {
+             listInventory = inventoryRepo.getInventoryByAlertLevel(alertLevel);
+        } catch (Exception e) {
+            
+            listInventory  =null;
+        }
+       
+        return listInventory;}
     
 }

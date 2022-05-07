@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SuppliedServiceImpl implements SuppliedProductService {
+public class SuppliedProductServiceImpl implements SuppliedProductService {
 
     @Autowired
     private SuppliedProductRepository supProductRepo;
@@ -93,6 +93,31 @@ public class SuppliedServiceImpl implements SuppliedProductService {
         }
 
         return supProduct;
+    }
+
+    @Override
+    public List<SuppliedProduct> listAllSuppliedProductBySuppliedStatus() {
+       
+                List<SuppliedProduct> supProduct = null;
+                try {
+              supProduct = supProductRepo.getAllSupplieredProductStatus("send");
+        } catch (Exception e) {
+            supProduct =null;
+            
+        }
+    return supProduct;
+    }
+
+    @Override
+    public List<SuppliedProduct> listAllSuppliedProductBySuppliedRecieved() {
+          List<SuppliedProduct> supProduct = null;
+                try {
+              supProduct = supProductRepo.getAllSupplieredProductStatus("recieved");
+        } catch (Exception e) {
+            supProduct =null;
+            
+        }
+    return supProduct;
     }
 
 }

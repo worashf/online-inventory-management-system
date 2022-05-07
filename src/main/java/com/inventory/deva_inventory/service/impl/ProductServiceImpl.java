@@ -5,11 +5,19 @@
  */
 package com.inventory.deva_inventory.service.impl;
 
+import com.inventory.deva_inventory.dao.BrandRepository;
+import com.inventory.deva_inventory.dao.CategoryRepository;
+import com.inventory.deva_inventory.dao.InventoryRepository;
 import com.inventory.deva_inventory.dao.OrderRepository;
 import com.inventory.deva_inventory.dao.ProductRepository;
+import com.inventory.deva_inventory.dao.SuppliedProductRepository;
 import com.inventory.deva_inventory.dao.SupplierRepository;
+import com.inventory.deva_inventory.model.Brand;
+import com.inventory.deva_inventory.model.Category;
+import com.inventory.deva_inventory.model.Inventory;
 import com.inventory.deva_inventory.model.Order;
 import com.inventory.deva_inventory.model.Product;
+import com.inventory.deva_inventory.model.SuppliedProduct;
 import com.inventory.deva_inventory.model.Supplier;
 import com.inventory.deva_inventory.service.ProductService;
 import java.util.Date;
@@ -30,22 +38,40 @@ public class ProductServiceImpl implements ProductService{
     private OrderRepository orderRepo;
     @Autowired
     private SupplierRepository supplierRepo;
+    @Autowired
+    private SuppliedProductRepository supProductRepository;
+    @Autowired
+    private CategoryRepository catRepo;
+    @Autowired
+    private BrandRepository brandRepo;
+    @Autowired
+    private InventoryRepository invRepo;
     
     @Override
-    public Product saveProduct(Integer supplierId, String orderNumber, Product product) {
+    public Product saveProduct(Integer supplierId, Integer suppliedProductId,
+            Integer categoryId, Integer brandId,Product  product) {
         
-          Order ord =null;
+    
           Product prod =null;
          Supplier sup =null;
+         SuppliedProduct suppliedProduct=null;
+         Category cat =null;
+         Brand brand =null;
         
         try {
             Date date = new Date();
-             ord = orderRepo.getAllOrderByOrderNumber(orderNumber);
-             sup = supplierRepo.getById(supplierId);
-             
-            product.setOrder(ord);
+            suppliedProduct = supProductRepository.getById(suppliedProductId);
+            suppliedProduct.setSuppliedProductStatus("recieved");
+            suppliedProduct = supProductRepository.save(suppliedProduct);
+            cat = catRepo.getById(categoryId);
+            brand = brandRepo.getById(brandId);
+            sup = supplierRepo.getById(supplierId);
+            product.setSupProduct(suppliedProduct);
             product.setRecievedDate(date);
             product.setSupplier(sup);
+            product.setCategory(cat);
+            product.setBrand(brand);
+            product.setStockStatus("un-stocked");
             prod = productRepo.save(product);
             
         } catch (Exception e) {
@@ -104,6 +130,79 @@ public class ProductServiceImpl implements ProductService{
             listPro =null;
         }
         return listPro;
+    }
+
+    @Override
+    public List<Product> listAllProductByCategoryId(Integer categoryId) {
+     List<Product> listPro =null;
+        try {
+            listPro = productRepo.getAllProductByCategory(categoryId);
+        } catch (Exception e) {
+            listPro =null;
+        }
+        return listPro;
+    }
+
+    @Override
+    public List<Product> listAllProductByBrandId(Integer brandId) {
+         List<Product> listPro =null;
+        try {
+            listPro = productRepo.getAllProductByBrand(brandId);
+        } catch (Exception e) {
+            listPro =null;
+        }
+        return listPro;    }
+
+    @Override
+    public Product getProductByProductNumber(String productNumber) {
+         Product pro =null;
+        try {
+            pro = productRepo.getProductbyProductNumner(productNumber);
+        } catch (Exception e) {
+            pro =null;
+        }
+        return pro; 
+    }
+
+    @Override
+    public List<Product> listAllProductByProductStockStatus(String stockStatus) {
+     List<Product> listPro =null;
+        try {
+            listPro = productRepo.getAllProductByStockStatus(stockStatus);
+        } catch (Exception e) {
+            listPro =null;
+        }
+        return listPro;  
+    
+    }
+
+    @Override
+    public Product addProductToInventory(Integer productId, String inventoryCode) {
+            Product pro =null;
+            Inventory inv =null;
+        try {
+            inv = invRepo.getInventoryByInventoryCode(inventoryCode);
+            pro = productRepo.getById(productId);
+            pro.setInventory(inv);
+            pro.setStockStatus("stocked");
+            pro = productRepo.save(pro);
+        } catch (Exception e) {
+            pro =null;
+        }
+        return pro; 
+
+    }
+
+    @Override
+    public List<Product> listProductByInventory(Integer inventoryId) {
+       List<Product> listPro =null;
+        try {
+            listPro = productRepo.getAllProductByInventory(inventoryId);
+        } catch (Exception e) {
+            listPro =null;
+        }
+        return listPro;      
+    
     }
     
 }

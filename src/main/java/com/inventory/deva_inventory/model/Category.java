@@ -5,6 +5,7 @@
  */
 package com.inventory.deva_inventory.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -32,6 +33,7 @@ public class Category implements  Serializable{
      private String categoryName;
      @Column(name="category_description")
      private String categoryDescription;
+       @JsonIgnore
      @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
      private List<Product> products;
 

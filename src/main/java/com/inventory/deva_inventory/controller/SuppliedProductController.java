@@ -56,6 +56,19 @@ public class SuppliedProductController {
          List<SuppliedProduct> listSuppliedPro = supProductService.listAllSuppliedProductByrderId(orderId);
         return ResponseEntity.ok().body(listSuppliedPro);
     }
+        @GetMapping("/supplied-products/send")
+    public ResponseEntity<List<SuppliedProduct>> getAllSendProduct(){
+       
+         List<SuppliedProduct> listSuppliedPro = supProductService.listAllSuppliedProductBySuppliedStatus();
+        return ResponseEntity.ok().body(listSuppliedPro);
+    }
+    
+      @GetMapping("/supplied-products/recieved")
+    public ResponseEntity<List<SuppliedProduct>> getAllRecievedProduct(){
+       
+         List<SuppliedProduct> listSuppliedPro = supProductService.listAllSuppliedProductBySuppliedRecieved();
+        return ResponseEntity.ok().body(listSuppliedPro);
+    }
     @DeleteMapping("/supplied-products/{suppliedProductId}")
     public ResponseEntity<Map<String,Boolean>> deleteSuppliedProduct(@PathVariable Integer suppliedProductId){
          supProductService.deleteSuppliedProduct(suppliedProductId);

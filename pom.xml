@@ -52,7 +52,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <scope>test</scope>Search (Ctrl+I)
         </dependency>
 	<dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
